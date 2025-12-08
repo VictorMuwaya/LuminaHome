@@ -5,15 +5,22 @@ import ProductCard from './components/ProductCard';
 import AIChat from './components/AIChat';
 import { PRODUCTS, BUSINESS_NAME, BUSINESS_ADDRESS, BUSINESS_PHONE, BUSINESS_WHATSAPP } from './constants';
 import { Category } from './types';
-import { MapPin, Phone, MessageCircle, Clock, Mail } from 'lucide-react';
+import { MapPin, Phone, MessageCircle, Clock, Search } from 'lucide-react';
 
 const App: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const filteredProducts = useMemo(() => {
-    if (selectedCategory === 'All') return PRODUCTS;
-    return PRODUCTS.filter(p => p.category === selectedCategory);
-  }, [selectedCategory]);
+    return PRODUCTS.filter(p => {
+      const matchesCategory = selectedCategory === 'All' || p.category === selectedCategory;
+      const matchesSearch = 
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        p.description.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      return matchesCategory && matchesSearch;
+    });
+  }, [selectedCategory, searchQuery]);
 
   return (
     <div className="min-h-screen bg-stone-50">
@@ -24,10 +31,26 @@ const App: React.FC = () => {
 
         {/* Catalog Section */}
         <section id="products" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-            <div>
-              <h2 className="text-3xl font-bold text-stone-900">Curated Collection</h2>
-              <p className="mt-2 text-stone-500">Hand-picked items for your sanctuary.</p>
+          <div className="flex flex-col gap-6 mb-10">
+            <div className="flex flex-col md:flex-row justify-between items-end gap-4">
+              <div>
+                <h2 className="text-3xl font-bold text-stone-900">Curated Collection</h2>
+                <p className="mt-2 text-stone-500">Hand-picked items for your sanctuary.</p>
+              </div>
+
+              {/* Search Bar */}
+              <div className="relative w-full md:w-72">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search className="h-4 w-4 text-stone-400" />
+                </div>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="block w-full pl-10 pr-4 py-2.5 border border-stone-200 rounded-full leading-5 bg-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900 focus:border-transparent sm:text-sm transition-shadow shadow-sm"
+                  placeholder="Search products..."
+                />
+              </div>
             </div>
             
             {/* Category Filter */}
@@ -65,8 +88,10 @@ const App: React.FC = () => {
           </div>
 
           {filteredProducts.length === 0 && (
-            <div className="text-center py-20">
-              <p className="text-stone-500 text-lg">No products found in this category.</p>
+            <div className="text-center py-20 bg-white rounded-2xl border border-stone-100 shadow-sm">
+              <Search className="h-12 w-12 text-stone-300 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-stone-900">No products found</h3>
+              <p className="text-stone-500 mt-1">Try adjusting your search or category filter.</p>
             </div>
           )}
         </section>
