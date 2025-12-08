@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import ProductCard from './components/ProductCard';
+import About from './components/About';
 import AIChat from './components/AIChat';
 import { PRODUCTS, BUSINESS_NAME, BUSINESS_ADDRESS, BUSINESS_PHONE, BUSINESS_WHATSAPP } from './constants';
 import { Category } from './types';
@@ -95,6 +96,9 @@ const App: React.FC = () => {
             </div>
           )}
         </section>
+
+        {/* About Section */}
+        <About />
 
         {/* Location & Contact Section */}
         <section id="contact" className="bg-white border-t border-stone-200">
