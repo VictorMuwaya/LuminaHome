@@ -1,20 +1,29 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
-# Run and deploy your AI Studio app
-
+#Run and deploy app
 This contains everything you need to run your app locally.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1qE2_8aA7-65iaho86-KRarg4S3d-3vaA
+#Run Locally
+Prerequisites: Node.js
 
-## Run Locally
+#Install dependencies: npm install
+Set the GEMINI_API_KEY in .env.local to your Gemini API key
+Run the app: npm run dev ##How to get Gemini API Key Obtaining a Gemini API key is straightforward.
+Prerequisites:
 
-**Prerequisites:**  Node.js
+#A Google Account (Gmail, etc.).
+You must be in a supported country.
+Step-by-Step Guide:
 
+#Navigate to Google AI Studio: Go to aistudio.google.com.
+Sign In: Log in with your Google account. If it is your first time, you may need to accept the Terms of Service.
+Locate the API Key Button: On the left-hand sidebar, look for the "Get API key" button (often an icon of a key).
+Create the Key: Click "Create API key". You will typically see two options:
+Create API key in new project: The easiest option. It automatically sets up a wrapper project for you.
+Create API key in existing project: Select this if you already have a specific Google Cloud project you want to link this key to.
+Copy and Save: Your API key string (beginning with AIza...) will appear. Copy this immediately and save it in a secure location (like a .env file or password manager).
+Warning: Do not share this key publicly or commit it to GitHub.
+Important Security Note
+Never hardcode your API key directly into your code (e.g., const apiKey = "AIza..."). Instead, use environment variables:
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Mac/Linux: export GEMINI_API_KEY="your_key_here"
+Windows: set GEMINI_API_KEY="your_key_here"
+Then access it in code (e.g., in Python: os.environ["GEMINI_API_KEY"]).
