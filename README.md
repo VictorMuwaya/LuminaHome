@@ -41,6 +41,10 @@ The AI assistant in `services/geminiService.ts` is initialized with a robust sys
 2. **Business Knowledge**: Physical address, contact numbers, and operating hours.
 3. **Persona Guidelines**: Instructions to be concise, polite, and to drive sales via the integrated contact buttons.
 
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ## 📁 Folder Structure
 
 - `/components`: Modular UI components like `AIChat`, `ProductCard`, and `Hero`.
